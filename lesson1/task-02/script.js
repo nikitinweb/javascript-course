@@ -11,7 +11,5 @@ window.addEventListener('DOMContentLoaded', () => {
 
 	console.log("Произведение чисел = " + multiplyTotal);
 
-	console.log(multiplyTotal ** 3);
 	console.log((multiplyTotal ** 3).toString().slice(0, 2));
-
 });
