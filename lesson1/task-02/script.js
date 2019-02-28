@@ -2,14 +2,16 @@ window.addEventListener('DOMContentLoaded', () => {
 	'use strict';
 
 	let num = 33721,
-		multiplyTotal = 1;
+		str;
 
-	while (num > 0) {
-		multiplyTotal = multiplyTotal * (num % 10);
-		num = Math.floor(num / 10);
-	}
+	str = num.toString().split('').join('*');
 
-	console.log("Произведение чисел = " + multiplyTotal);
+	num = eval(str);
 
-	console.log((multiplyTotal ** 3).toString().slice(0, 2));
+	console.log("Произведение чисел = " + num);
+
+	num = num ** 3;
+	str = num.toString().substr(0, 2);
+
+	console.log(str);
 });
