@@ -1,17 +1,17 @@
 window.addEventListener('DOMContentLoaded', () => {
-	'use strict';
+  'use strict';
 
-	let num = 33721,
-		str;
+  let num = 33721,
+    str;
 
-	str = num.toString().split('').join('*');
+  str = num.toString().split('').join('*');
 
-	num = eval(str);
+  num = eval(str);
 
-	console.log("Произведение чисел = " + num);
+  console.log("Произведение чисел = " + num);
 
-	num = num ** 3;
-	str = num.toString().substr(0, 2);
+  num = num ** 3;
+  str = num.toString().substr(0, 2);
 
-	console.log(str);
+  console.log(str);
 });
