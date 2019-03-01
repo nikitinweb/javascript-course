@@ -5,7 +5,7 @@ window.addEventListener('DOMContentLoaded', () => {
     time = prompt("Введите дату в формате YYYY-MM-DD", "1990-01-01"),
     numberDay = 30,
     appData = {
-      budjet: money,
+      moneyData: money,
       timeData: time,
       expenses: {},
       optionalExpenses: {},
@@ -17,14 +17,8 @@ window.addEventListener('DOMContentLoaded', () => {
     let expensesName = prompt("Введите обязательную статью расходов в этом месяце", "Налоги"),
       expensesTotal = +prompt("Во сколько обойдется", 3000);
 
-    if ((typeof (expensesName)) === 'string' && (typeof (expensesName)) != null && (typeof (expensesTotal)) === 'number' && (typeof (expensesTotal)) != null && expensesName != '' && expensesTotal != '') {
-      appData.expenses[expensesName] = expensesTotal;
-    } else {
-
-    }
+    appData.expenses[expensesName] = expensesTotal;
   }
 
-  appData.moneyPerDay = Math.floor(appData.budjet / numberDay);
-
-  alert("Бюджет на день: " + appData.moneyPerDay + " руб");
+  alert("Бюджет на день: " + Math.floor(money / numberDay) + " руб");
 });
