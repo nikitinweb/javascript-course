@@ -2,16 +2,19 @@ window.addEventListener('DOMContentLoaded', () => {
   'use strict';
 
   let num = 33721,
-    str;
+		str,
+		result = 1;
 
-  str = num.toString().split('').join('*');
+  str = num.toString().split('');
 
-  num = eval(str);
+	for (let i = 0; i < str.length; i++) {
+		result *= str[i];
+	}
 
-  console.log("Произведение чисел = " + num);
+  console.log("Произведение чисел = " + result);
 
-  num = num ** 3;
-  str = num.toString().substr(0, 2);
+  result = result ** 3;
+  str = result.toString().substr(0, 2);
 
   console.log(str);
 });
