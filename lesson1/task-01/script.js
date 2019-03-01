@@ -20,6 +20,5 @@ window.addEventListener('DOMContentLoaded', () => {
 		appData.expenses[expensesName] = expensesTotal;
   }
 
-	console.log(appData);
   alert("Бюджет на день: " + Math.floor(money / numberDay) + " руб");
 });

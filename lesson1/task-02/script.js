@@ -2,14 +2,14 @@ window.addEventListener('DOMContentLoaded', () => {
   'use strict';
 
   let num = 33721,
-		str,
-		result = 1;
+    str,
+    result = 1;
 
   str = num.toString().split('');
 
-	for (let i = 0; i < str.length; i++) {
-		result *= str[i];
-	}
+  for (let i = 0; i < str.length; i++) {
+    result *= str[i];
+  }
 
   console.log("Произведение чисел = " + result);
 
