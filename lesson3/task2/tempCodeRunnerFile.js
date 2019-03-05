@@ -1,5 +1,4 @@
-window.addEventListener('DOMContentLoaded', () => {
-	let str = "урок-3-был слишком легким",
+let str = "урок-3-был слишком легким",
 		text = "легким",
 		arr = [20, 33, 1, "Человек", 2, 3],
 		total;
@@ -44,4 +43,3 @@ window.addEventListener('DOMContentLoaded', () => {
 	}
 
 	console.log(isString('      Большой текст с пробелам в начале и конце много слов чтобы сделать длинное предложение более 50 слов     '));
-});
