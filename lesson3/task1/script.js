@@ -40,12 +40,11 @@ window.addEventListener("DOMContentLoaded", () => {
   chooseExpenses();
 
   function chooseOptExpenses(count) {
-    for (let i = 0; i < count; i++) {
-      let expensesName = prompt("Введите дополнительную статью расходов в этом месяце", "Книги"),
-        expensesTotal = +prompt("Во сколько обойдется", 1000);
+    for (let i = 1; i <= count; i++) {
+      let expensesName = prompt("Введите дополнительную статью расходов в этом месяце", "Книги");
 
-      if ((typeof (expensesName)) === "string" && (typeof (expensesName)) != null && (typeof (expensesTotal)) === "number" && (typeof (expensesTotal)) != null && expensesName != "" && expensesTotal != "") {
-        appData.optionalExpenses[expensesName] = expensesTotal;
+      if ((typeof (expensesName)) === "string" && (typeof (expensesName)) != null && expensesName != "") {
+        appData.optionalExpenses[i] = expensesName;
       } else {
         i--;
         alert("Поля заполнены не правильно. Попробуйте еще раз");
@@ -53,7 +52,7 @@ window.addEventListener("DOMContentLoaded", () => {
       }
     }
   }
-  chooseOptExpenses(3);
+	chooseOptExpenses(3);
 
   function detectDayBudget() {
     appData.moneyPerDay = (appData.budget / numberDay).toFixed();
