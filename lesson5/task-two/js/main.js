@@ -18,4 +18,5 @@ let startBtn = document.querySelector('#start'),
 	choosePercent = document.querySelector('#percent'),
 	yearValue = document.querySelector('.year-value'),
 	monthValue = document.querySelector('.month-value'),
-	dayValue = document.querySelector('.day-value');
+	dayValue = document.querySelector('.day-value'),
+	dayBudgetValue = document.querySelector('.daybudget-value');
