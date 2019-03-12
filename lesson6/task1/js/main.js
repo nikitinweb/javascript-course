@@ -88,6 +88,54 @@ countBudgetBtn.addEventListener('click', function () {
     } else {
       levelValue.textContent = "Произошла ошибка";
     }
+  } else {
+    dayBudgetValue.textContent = "Произошла ошибка";
+  }
+});
+
+chooseIncome.addEventListener('input', function () {
+  let items = chooseIncome.value;
+
+  appData.income = items.split(', ');
+
+  appData.income.sort();
+
+  incomeValue.textContent = appData.income;
+});
+
+chooseSavings.addEventListener('click', function () {
+  if (appData.savings == true) {
+    appData.savings = false;
+  } else {
+    appData.savings = true;
+  }
+});
+
+chooseSum.addEventListener('input', function () {
+  if (appData.savings == true) {
+    let sum = +chooseSum.value,
+      percent = +choosePercent.value;
+
+    appData.monthIncome = sum / 100 / 12 * percent;
+    appData.yearIncome = sum / 100 * percent;
+
+    monthSavingsValue.textContent = appData.monthIncome.toFixed(1);
+    yearSavingsValue.textContent = appData.yearIncome.toFixed(1);
+  }
+
+  console.log(sum, percent);
+});
+
+choosePercent.addEventListener('input', function () {
+  if (appData.savings == true) {
+    let sum = +chooseSum.value,
+      percent = +choosePercent.value;
+
+    appData.monthIncome = sum / 100 / 12 * percent;
+    appData.yearIncome = sum / 100 * percent;
+
+    monthSavingsValue.textContent = appData.monthIncome.toFixed(1);
+    yearSavingsValue.textContent = appData.yearIncome.toFixed(1);
   }
 });
 
@@ -98,57 +146,5 @@ let numberDay = 30,
     expenses: {},
     optionalExpenses: {},
     income: 0,
-    savings: true,
-    chooseExpenses: function () {
-
-    },
-    detectDayBudget: function () {},
-    detectLevel: function () {
-
-    },
-    checkSavings: function () {
-      if (appData.savings == true) {
-        let save = +prompt("Какова сумма накоплений?", 10000),
-          persent = +prompt("Под какой процент?", 6);
-
-        appData.monthIncome = save / 100 / 12 * persent;
-        alert("Доход в месяц с вашего депозита " + appData.monthIncome);
-      }
-    },
-    chooseOptExpenses: function (count) {
-
-    },
-    chooseIncome: function () {
-      let items;
-
-      while ((typeof (items)) !== "string" || (typeof (items)) == null || items == "") {
-        items = prompt("Что принесет дополнительный доход? (Перечислите через запятую)", "Ставки, казино");
-      }
-
-      appData.income = items.split(', ');
-
-      items = prompt("Может что-то еще?", "");
-      if ((typeof (items)) === "string" && (typeof (items)) != null && items != "") {
-        appData.income.push(items.split(', '));
-      }
-
-      appData.income.sort();
-
-      if (appData.income.length > 0) {
-        let str = "Способы доп. заработка:";
-
-        appData.income.forEach(function (item, i) {
-          str += "<p>" + (i + 1) + ". " + item + "<p>";
-        });
-        document.write(str);
-      } else {
-        alert("Способов доп. заработка нет.");
-      }
-    },
-    viewData: function () {
-      console.log("Наша программа включает в себя данные:");
-      for (let key in appData) {
-        console.log(key + " : " + appData[key]);
-      }
-    }
+    savings: false
   };
