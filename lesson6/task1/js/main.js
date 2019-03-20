@@ -1,4 +1,4 @@
-let startBtn = document.querySelector('#start'),
+let startBtn = document.getElementById('start'),
   budgetValue = document.querySelector('.budget-value'),
   levelValue = document.querySelector('.level-value'),
   expensesValue = document.querySelector('.expenses-value'),
@@ -19,7 +19,12 @@ let startBtn = document.querySelector('#start'),
   yearValue = document.querySelector('.year-value'),
   monthValue = document.querySelector('.month-value'),
   dayValue = document.querySelector('.day-value'),
-  dayBudgetValue = document.querySelector('.daybudget-value');
+  dayBudgetValue = document.querySelector('.daybudget-value'),
+  disabledButton = [expensesItemBtn, optionalExpensesBtn, countBudgetBtn];
+
+disabledButton.forEach(function (item) {
+  item.classList.add("button_disabled");
+});
 
 let money, time;
 
@@ -33,51 +38,96 @@ startBtn.addEventListener('click', function () {
 
   appData.budget = money;
   appData.timeData = time;
-  budgetValue.textContent = money.toFixed();
+  budgetValue.textContent = money.toFixed(); // Выводим на страницу и округляем
 
   time = new Date(Date.parse(time)); // Преобразование даты
   yearValue.value = time.getFullYear();
   monthValue.value = time.getMonth() + 1;
   dayValue.value = time.getDate();
+
+  countBudgetBtn.classList.remove("button_disabled");
 });
 
 expensesItemBtn.addEventListener('click', function () {
+  let sumExpenses = checkChangeExpenses();
+  expensesValue.textContent = sumExpenses;
+  appData.sumExpenses = sumExpenses;
+});
+
+function checkChangeExpenses() {
   let sum = 0;
+
   for (let i = 0; i < expensesItem.length; i++) {
-    let a = expensesItem[i].value;
-    let b = +expensesItem[++i].value;
+    let inputOne = expensesItem[i],
+      inputTwo = expensesItem[++i],
+      valueOne = inputOne.value,
+      valueTwo = +inputTwo.value,
+      checkOne = valueOne.length > 0,
+      checkTwo = valueTwo > 0 && !isNaN(valueTwo);
 
-
-
-    if ((typeof (a)) === "string" && (typeof (a)) != null && (typeof (b)) === "number" && (typeof (b)) != null && a != "" && b != "") {
-      appData.expenses[a] = b;
-      sum += b;
+    if (checkOne && checkTwo) {
+      expensesItemBtn.classList.remove("button_disabled");
+      inputOne.classList.remove('input_error');
+      inputTwo.classList.remove('input_error');
+      inputOne.classList.add('input_done');
+      inputTwo.classList.add('input_done');
+      appData.expenses[valueOne] = valueTwo;
+      sum += valueTwo;
     } else {
-      alert("Поля заполнены не правильно. Попробуйте еще раз");
-      break;
+      inputOne.classList.remove('input_done');
+      inputTwo.classList.remove('input_done');
+
+      inputOne.classList.add('input_error');
+      inputTwo.classList.add('input_error');
     }
   }
-  expensesValue.textContent = sum;
+  return sum;
+};
+
+expensesItem.forEach(function (item) {
+  item.addEventListener('input', checkChangeExpenses);
+});
+
+function checkChangeOptionalExpenses(isAdd) {
+  if (isAdd) {
+    optionalExpensesValue.textContent = '';
+  }
+  optionalExpensesItem.forEach(function (item, i) {
+    if (item.value.length > 0) {
+      optionalExpensesBtn.classList.remove("button_disabled");
+      item.classList.remove('input_error');
+      item.classList.add('input_done');
+      if (isAdd) {
+        appData.optionalExpenses[i] = item.value;
+        optionalExpensesValue.textContent += item.value + ' ';
+      }
+    } else {
+      item.classList.remove('input_done');
+      item.classList.add('input_error');
+    }
+  });
+}
+
+optionalExpensesItem.forEach(function (item) {
+  item.addEventListener('input', function () {
+    checkChangeOptionalExpenses(false);
+  });
 });
 
 optionalExpensesBtn.addEventListener('click', function () {
-  for (let i = 0; i < optionalExpensesItem.length; i++) {
-    let a = optionalExpensesItem[i].value;
-
-    if ((typeof (a)) === "string" && (typeof (a)) != null && a != "") {
-      appData.optionalExpenses[i] = a;
-      optionalExpensesValue.textContent += a + ' ';
-    } else {
-      alert("Поля заполнены не правильно. Попробуйте еще раз");
-      break;
-    }
-  }
+  checkChangeOptionalExpenses(true);
 });
 
 countBudgetBtn.addEventListener('click', function () {
   if (appData.budget != undefined) {
-    appData.moneyPerDay = (appData.budget / numberDay).toFixed();
-    dayBudgetValue.textContent = appData.moneyPerDay;
+    appData.moneyPerDay = ((appData.budget - appData.sumExpenses) / numberDay).toFixed();
+
+    if (appData.moneyPerDay > 0) {
+      dayBudgetValue.textContent = appData.moneyPerDay;
+    } else {
+      dayBudgetValue.textContent = "Бюджета не хватает";
+    }
+
 
     if (appData.moneyPerDay < 100) {
       levelValue.textContent = "Минимальный уровень достатка";
@@ -144,6 +194,7 @@ let numberDay = 30,
     budget: money,
     timeData: time,
     expenses: {},
+    sumExpenses: 0,
     optionalExpenses: {},
     income: 0,
     savings: false
