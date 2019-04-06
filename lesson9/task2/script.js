@@ -8,4 +8,4 @@ function showUser(surname, name) {
   alert("Пользователь " + surname + " " + name + ", его возраст " + this.value);
 }
 
-showUser.call(age, [user.name], [user.surname]);
+showUser.call(age, user.name, user.surname);
