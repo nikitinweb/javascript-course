@@ -35,6 +35,7 @@ window.addEventListener('load', function () {
     }
   });
 
+
   let deadline = '2019-04-09';
 
   function getTimeRemaining(endtime) {
