@@ -1,24 +1,22 @@
-window.addEventListener('DOMContentLoaded', () => {
-  'use strict';
+'use strict';
+let money = +prompt('Ваш бюджет на месяц?', 10000),
+  time = prompt('Введите дату в формате YYYY-MM-DD', '2019-06-12'),
+  dayCount = 30;
 
-  let money = +prompt("Ваш бюджет на месяц?", 10000),
-    time = prompt("Введите дату в формате YYYY-MM-DD", "1990-01-01"),
-    numberDay = 30,
-    appData = {
-      moneyData: money,
-      timeData: time,
-      expenses: {},
-      optionalExpenses: {},
-      income: 0,
-      savings: false
-    };
+let appData = {
+  budget: money,
+  timeData: time,
+  expenses: {},
+  optionalExpenses: {},
+  income: [],
+  savings: false
+};
 
-  for (let i = 0; i < 2; i++) {
-    let expensesName = prompt("Введите обязательную статью расходов в этом месяце", "Налоги"),
-      expensesTotal = +prompt("Во сколько обойдется", 3000);
+for (let i = 0; i < 2; i++) {
+  let a = prompt('Введите обязательную статью расходов в этом месяце', 'Квартплата'),
+    b = prompt('Во сколько обойдется?', 13000);
 
-    appData.expenses[expensesName] = expensesTotal;
-  }
+  appData.expenses[a] = b;
+}
 
-  alert("Бюджет на день: " + Math.floor(money / numberDay) + " руб");
-});
+alert('Бюджет на 1 день: ' + Math.floor(appData.budget / dayCount) + " руб");
