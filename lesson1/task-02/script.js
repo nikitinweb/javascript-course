@@ -1,20 +1,14 @@
-window.addEventListener('DOMContentLoaded', () => {
-  'use strict';
+'use strict';
+let num = 33721,
+	total = 1;
 
-  let num = 33721,
-    str,
-    result = 1;
+num = num.toString().split('');
 
-  str = num.toString().split('');
-
-  for (let i = 0; i < str.length; i++) {
-    result *= str[i];
-  }
-
-  console.log("Произведение чисел = " + result);
-
-  result = result ** 3;
-  str = result.toString().substr(0, 2);
-
-  console.log(str);
+num.forEach(item => {
+	total = total * item;
 });
+
+console.log(total);
+
+total = total ** 3;
+console.log(total.toString().slice(0, 2));
